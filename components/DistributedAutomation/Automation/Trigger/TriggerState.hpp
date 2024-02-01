@@ -10,12 +10,12 @@
 
 class TriggerState : public Trigger {
 protected:
-    vector<string> entity_id;
-    vector<string> from_state;
-    vector<string> to_state;
+    string attribute;
+    string from_state;
+    string to_state;
     time_t for_{};
 public:
-    TriggerState(string alias, vector<string> entity_id, vector<string> from_state, vector<string> to_state, time_t for_);
+    TriggerState(string alias, string attribute, string from_state, string to_state, time_t for_);
     ~TriggerState();
 };
 

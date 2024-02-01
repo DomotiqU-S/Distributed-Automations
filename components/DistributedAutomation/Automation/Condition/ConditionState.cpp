@@ -8,8 +8,7 @@ bool ConditionState::Verify() {
     return false;
 }
 
-ConditionState::ConditionState(char *alias, string entity_id, string attribute, time_t for_, string state) : Condition(alias) {
-    this->entity_id = std::move(entity_id);
+ConditionState::ConditionState(string alias, string attribute, string state, time_t for_) : Condition(alias) {
     this->attribute = std::move(attribute);
     this->for_ = for_;
     this->state = std::move(state);

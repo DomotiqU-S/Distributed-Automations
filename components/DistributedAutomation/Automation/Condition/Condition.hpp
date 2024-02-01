@@ -14,7 +14,7 @@ protected:
     string alias;
 
 public:
-    explicit Condition(char *alias);
+    explicit Condition(string alias);
     virtual ~Condition();
     virtual bool Verify() = 0;
 };

@@ -8,12 +8,14 @@
 
 
 class ActionDelay : public Action {
+protected:
+    time_t delay;
+
 public:
-    ActionDelay(std::string alias, time_t delay);
+    ActionDelay(string alias, time_t delay);
     ~ActionDelay() override;
     void Do() override;
 
-    time_t delay;
 };
 
 

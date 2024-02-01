@@ -6,7 +6,7 @@
 
 #include <utility>
 
-ActionDelay::ActionDelay(std::string alias, time_t delay) : Action(std::move(alias)) {
+ActionDelay::ActionDelay(string alias, time_t delay) : Action(std::move(alias)) {
     this->delay = delay;
 }
 

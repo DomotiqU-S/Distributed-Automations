@@ -22,7 +22,7 @@ protected:
     vector<Condition *> conditions;
 
 public:
-    explicit ConditionLogical(char *alias, LogicalOperator logicalOperator, vector<Condition *> conditions);
+    explicit ConditionLogical(string alias, LogicalOperator logicalOperator, vector<Condition *> conditions);
     ~ConditionLogical() override;
     bool Verify() override;
 };

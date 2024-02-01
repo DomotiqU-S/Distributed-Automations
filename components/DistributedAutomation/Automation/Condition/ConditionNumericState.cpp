@@ -6,7 +6,7 @@
 
 #include <utility>
 
-ConditionNumericState::ConditionNumericState(char *alias, string attribute, string value_template,
+ConditionNumericState::ConditionNumericState(string alias, string attribute, string value_template,
                                              double above, double below)  : Condition(alias) {
     this->attribute = std::move(attribute);
     this->value_template = std::move(value_template);

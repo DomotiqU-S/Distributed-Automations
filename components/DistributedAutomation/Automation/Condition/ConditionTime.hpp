@@ -16,7 +16,7 @@ protected:
     vector<string> weekday;
 
 public:
-    explicit ConditionTime(char *alias, tm after, tm before, vector<string> weekday);
+    explicit ConditionTime(string alias, tm after, tm before, vector<string> weekday);
     ~ConditionTime() override;
     bool Verify() override;
 };

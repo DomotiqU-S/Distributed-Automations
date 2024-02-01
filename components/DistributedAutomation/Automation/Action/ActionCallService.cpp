@@ -6,7 +6,7 @@
 
 #include <utility>
 
-ActionCallService::ActionCallService(std::string alias, std::string service, json service_data)
+ActionCallService::ActionCallService(string alias, string service, string service_data)
         : Action(std::move(alias)) {
     this->service  = std::move(service);
     this->service_data = std::move(service_data);

@@ -4,7 +4,7 @@
 
 #include "ConditionTrigger.hpp"
 
-ConditionTrigger::ConditionTrigger(char *alias, string trigger_alias)  : Condition(alias) {
+ConditionTrigger::ConditionTrigger(string alias, string trigger_alias)  : Condition(alias) {
     this->trigger_alias = std::move(trigger_alias);
 
 }

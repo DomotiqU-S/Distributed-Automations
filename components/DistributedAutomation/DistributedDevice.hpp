@@ -7,11 +7,17 @@
 
 
 #include <map>
+#include <thread>
+#include <condition_variable>
 #include "Automation/Automation.hpp"
 
 class DistributedDevice {
 private:
-    vector<Automation> automations;
+    vector<Automation *> automations;
+    vector<thread> automations_threads;
+    bool running;
+    mutex cv_m;
+    condition_variable cv;
 
 public:
     DistributedDevice();
@@ -22,11 +28,12 @@ public:
     void RemoveAutomation(string alias);
 
     //Getter
-    vector<Automation> GetAutomations();
+    vector<Automation *> GetAutomations();
 
     void UpdateAutomations();
 
-    void Run();
+    static void Run();
+    void CreateAutomationsThreads();
 };
 
 

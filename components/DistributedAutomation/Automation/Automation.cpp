@@ -21,9 +21,22 @@ Automation::Automation(string alias, string description, vector<Trigger *> trigg
     this->triggers = std::move(triggers);
     this->conditions = std::move(conditions);
     this->actions = std::move(actions);
+
+    this->has_triggered = false;
+    this->running = true;
 }
 
-Automation::~Automation() = default;
+Automation::~Automation(){
+    for (auto &trigger : this->triggers) {
+        delete trigger;
+    }
+    for (auto &condition : this->conditions) {
+        delete condition;
+    }
+    for (auto &action : this->actions) {
+        delete action;
+    }
+}
 
 void Automation::AddTrigger(Trigger *trigger) {
     this->triggers.push_back(trigger);
@@ -72,10 +85,34 @@ void Automation::Do() {
     }
 }
 
-void Automation::Run() {
-    if (this->Verify()) {
-        this->Do();
+void Automation::Run(condition_variable *cv, mutex *cv_m) {
+    while (true){
+        sleep(10);
+
+        unique_lock<mutex> lock(*cv_m);
+        this->has_triggered = true;
+        cv->notify_all();
+        if (!this->running) {
+            return;
+        }
     }
 }
+
+
+bool Automation::HasTriggered() {
+    if (this->has_triggered)
+    {
+        this->has_triggered = false;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Automation::SetTrigger() {
+
+}
+
 
 

@@ -4,7 +4,7 @@
 
 #include "ConditionTime.hpp"
 
-ConditionTime::ConditionTime(char *alias, tm after, tm before, vector<string> weekday) : Condition(alias) {
+ConditionTime::ConditionTime(string alias, tm after, tm before, vector<string> weekday) : Condition(alias) {
     this->after = after;
     this->before = before;
     this->weekday = std::move(weekday);

@@ -16,7 +16,7 @@ protected:
     double below;
 
 public:
-    explicit ConditionNumericState(char *alias, string attribute, string value_template, double above, double below);
+    explicit ConditionNumericState(string alias, string attribute, string value_template, double above, double below);
     ~ConditionNumericState() override;
     bool Verify() override;
 };

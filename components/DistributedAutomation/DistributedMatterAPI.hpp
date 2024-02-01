@@ -12,7 +12,7 @@ public:
     static bool AddAutomationToDevice(const string& device_alias, const Automation& automation);
     static bool RemoveAutomationToDevice(const string& device_alias, const string& automation_alias);
     static vector<string> GetDevices();
-    static vector<Automation> GetAutomations(const string& alias);
+    static vector<Automation *> GetAutomations(const string& alias);
 };
 
 

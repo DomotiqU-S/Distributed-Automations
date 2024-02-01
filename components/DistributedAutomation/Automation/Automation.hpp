@@ -7,6 +7,8 @@
 
 
 #include <vector>
+#include <mutex>
+#include <condition_variable>
 #include "Trigger/Trigger.hpp"
 #include "Condition/Condition.hpp"
 #include "Action/Action.hpp"
@@ -18,6 +20,9 @@ private:
     vector<Condition *> conditions;
     vector<Action *> actions;
     vector<Trigger *> triggers;
+
+    bool has_triggered;
+    bool running;
 
 public:
     Automation(string alias, string description, vector<Trigger *> triggers, vector<Condition *> conditions, vector<Action *> actions);
@@ -34,9 +39,11 @@ public:
     vector<Condition *> GetConditions();
     vector<Action *> GetActions();
     vector<Trigger *> GetTriggers();
+    bool HasTriggered();
 
     //Functional
-    void Run();
+    void Run(condition_variable *cv, mutex *cv_m);
+    void SetTrigger();
     bool Verify();
     void Do();
 };

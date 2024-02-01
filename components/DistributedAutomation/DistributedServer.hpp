@@ -13,9 +13,9 @@ class DistributedServer
 {
 private:
     vector<string> devices_alias;
-    map<string, vector<Automation>> automations_by_devices;
+    map<string, vector<Automation *>> automations_by_devices;
+    bool running;
 
-public:
     DistributedServer();
     ~DistributedServer();
 
@@ -35,7 +35,9 @@ public:
     void WriteAutomations();
     void ReadAutomations();
 
-    void Run();
+public:
+    static void Run();
+
 };
 
 #endif //CPP_DISTRIBUTEDSERVER_HPP

@@ -4,7 +4,7 @@
 
 #include "Condition.hpp"
 
-Condition::Condition(char *alias) {
+Condition::Condition(string alias) {
     this->alias = alias;
 }
 

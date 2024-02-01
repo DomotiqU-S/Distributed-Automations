@@ -6,19 +6,16 @@
 #define DISTRIBUTED_SERVER_ACTIONCALLSERVICE_HPP
 
 #include "Action.hpp"
-#include "../../../Library/nlohmann/json.hpp"
-using json = nlohmann::json;
-
 
 class ActionCallService : public Action {
 public:
-    ActionCallService(std::string alias, std::string service, json service_data);
+    ActionCallService(string alias, string service, string service_data);
     ~ActionCallService() override;
     void Do() override;
 
 protected:
-    std::string service;
-    json service_data;
+    string service;
+    string service_data;
 };
 
 

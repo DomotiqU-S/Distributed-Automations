@@ -10,13 +10,12 @@
 class ConditionState : public Condition
 {
 protected:
-    string entity_id;
     string attribute;
     time_t for_;
     string state;
 
 public:
-    explicit ConditionState(char *alias, string entity_id, string attribute, time_t for_, string state);
+    explicit ConditionState(string alias, string attribute, string state, time_t for_);
     ~ConditionState() override;
     bool Verify() override;
 };

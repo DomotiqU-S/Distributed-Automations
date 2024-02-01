@@ -7,11 +7,14 @@
 
 #include <string>
 #include <utility>
+#include <condition_variable>
+
 using namespace std;
 
 class Trigger {
 protected:
     string alias;
+
 public:
     explicit Trigger(string alias);
 };

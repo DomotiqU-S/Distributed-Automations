@@ -33,9 +33,14 @@ bool ConditionLogical::Verify() {
     return false;
 }
 
-ConditionLogical::ConditionLogical(char *alias, LogicalOperator logicalOperator, vector<Condition *> conditions) : Condition(alias){
+ConditionLogical::ConditionLogical(string alias, LogicalOperator logicalOperator, vector<Condition *> conditions) : Condition(alias){
     this->logicalOperator = logicalOperator;
     this->conditions = std::move(conditions);
 }
 
-ConditionLogical::~ConditionLogical() = default;
+ConditionLogical::~ConditionLogical(){
+    for (auto &condition : this->conditions) {
+        delete condition;
+    }
+    this->conditions.clear();
+};
