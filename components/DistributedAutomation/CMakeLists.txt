@@ -1,2 +1,2 @@
-idf_component_register(SRCS "Automation/Trigger.c" "Automation/Condition.c" "Automation/Action.c" "Automation/Automation.c" "DistributedDevice.c" "DistributedMatterAPI.c" "DistributedServer.c"
+idf_component_register(SRCS "Automation/Trigger.c" "Automation/Condition.c" "Automation/Action/Action.c" "Automation/Automation.c" "DistributedDevice.c" "DistributedMatterAPI.c" "../Utils/DistributedServer.c"
         INCLUDE_DIRS ".")
