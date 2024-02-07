@@ -11,4 +11,8 @@ TriggerState::TriggerState(string alias, string attribute, string from_state, st
     this->for_ = for_;
 }
 
+void TriggerState::SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) {
+
+}
+
 TriggerState::~TriggerState() = default;

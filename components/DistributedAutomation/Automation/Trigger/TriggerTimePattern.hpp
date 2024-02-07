@@ -13,6 +13,7 @@ protected:
 
 public:
     TriggerTimePattern(string alias, tm pattern);
+    void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) override;
     ~TriggerTimePattern();
 };
 

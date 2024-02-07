@@ -18,5 +18,4 @@ public:
 
 };
 
-
 #endif //CPP_ACTIONDELAY_HPP

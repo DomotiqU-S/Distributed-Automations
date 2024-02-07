@@ -12,10 +12,8 @@ protected:
     tm at{};
 public:
     TriggerTime(string alias, tm at);
+    void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) override;
     ~TriggerTime();
-
-
-
 };
 
 

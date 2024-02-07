@@ -85,16 +85,16 @@ void Automation::Do() {
     }
 }
 
-void Automation::Run(condition_variable *cv, mutex *cv_m) {
-    while (true){
-        sleep(10);
-
-        unique_lock<mutex> lock(*cv_m);
-        this->has_triggered = true;
-        cv->notify_all();
-        if (!this->running) {
-            return;
+void Automation::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
+    this->SetTrigger();
+    while (this-running){
+        unique_lock<mutex> lock_(this->cv_m);
+        {
+            unique_lock<mutex> lock(*cv_m_mother);
+            this->has_triggered = true;
+            cv_mother->notify_all();
         }
+        this->cv.wait(lock_);
     }
 }
 
@@ -111,7 +111,9 @@ bool Automation::HasTriggered() {
 }
 
 void Automation::SetTrigger() {
-
+    for (auto &trigger : this->triggers) {
+        trigger->SetTrigger(&this->cv, &this->cv_m);
+    }
 }
 
 

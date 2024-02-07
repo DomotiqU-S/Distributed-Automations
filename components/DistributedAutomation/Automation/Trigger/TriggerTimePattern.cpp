@@ -9,4 +9,9 @@ TriggerTimePattern::TriggerTimePattern(string alias, tm pattern)  : Trigger(std:
 
 }
 
+void TriggerTimePattern::SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) {
+    sleep(15);
+    cv_mother.notify_all();
+}
+
 TriggerTimePattern::~TriggerTimePattern() = default;

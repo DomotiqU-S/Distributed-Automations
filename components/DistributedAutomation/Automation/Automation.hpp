@@ -24,6 +24,10 @@ private:
     bool has_triggered;
     bool running;
 
+    mutex cv_m;
+    condition_variable cv;
+
+
 public:
     Automation(string alias, string description, vector<Trigger *> triggers, vector<Condition *> conditions, vector<Action *> actions);
     ~Automation();

@@ -17,4 +17,8 @@ TriggerNumericState::TriggerNumericState(string alias, vector<string> entity_id,
 
 }
 
+void TriggerNumericState::SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) {
+    return;
+}
+
 TriggerNumericState::~TriggerNumericState() = default;

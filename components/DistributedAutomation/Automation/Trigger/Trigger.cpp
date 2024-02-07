@@ -8,3 +8,5 @@
 Trigger::Trigger(string alias) {
     this->alias = std::move(alias);
 }
+
+

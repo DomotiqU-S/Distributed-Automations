@@ -16,6 +16,7 @@ protected:
     time_t for_{};
 public:
     TriggerState(string alias, string attribute, string from_state, string to_state, time_t for_);
+    void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) override;
     ~TriggerState();
 };
 
