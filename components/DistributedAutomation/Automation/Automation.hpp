@@ -21,11 +21,15 @@ private:
     vector<Action *> actions;
     vector<Trigger *> triggers;
 
+    vector<thread> trigger_threads;
+
     bool has_triggered;
     bool running;
 
     mutex cv_m;
     condition_variable cv;
+
+
 
 
 public:
@@ -47,6 +51,7 @@ public:
 
     //Functional
     void Run(condition_variable *cv, mutex *cv_m);
+    void Stop();
     void SetTrigger();
     bool Verify();
     void Do();

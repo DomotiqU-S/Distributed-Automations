@@ -4,7 +4,9 @@
 
 #ifndef CPP_ACTIONDELAY_HPP
 #define CPP_ACTIONDELAY_HPP
+
 #include "Action.hpp"
+#include <thread>
 
 
 class ActionDelay : public Action {
@@ -12,7 +14,7 @@ protected:
     time_t delay;
 
 public:
-    ActionDelay(string alias, time_t delay);
+    ActionDelay(string alias, time_t delay_s);
     ~ActionDelay() override;
     void Do() override;
 

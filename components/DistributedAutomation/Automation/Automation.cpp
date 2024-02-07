@@ -26,14 +26,17 @@ Automation::Automation(string alias, string description, vector<Trigger *> trigg
     this->running = true;
 }
 
-Automation::~Automation(){
-    for (auto &trigger : this->triggers) {
+Automation::~Automation() {
+    for (auto &thread: this->trigger_threads) {
+        thread.join();
+    }
+    for (auto &trigger: this->triggers) {
         delete trigger;
     }
-    for (auto &condition : this->conditions) {
+    for (auto &condition: this->conditions) {
         delete condition;
     }
-    for (auto &action : this->actions) {
+    for (auto &action: this->actions) {
         delete action;
     }
 }
@@ -71,7 +74,7 @@ vector<Trigger *> Automation::GetTriggers() {
 }
 
 bool Automation::Verify() {
-    for (auto &condition : this->conditions) {
+    for (auto &condition: this->conditions) {
         if (!condition->Verify()) {
             return false;
         }
@@ -80,40 +83,49 @@ bool Automation::Verify() {
 }
 
 void Automation::Do() {
-    for (auto &action : this->actions) {
+    for (auto &action: this->actions) {
         action->Do();
     }
 }
 
 void Automation::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
     this->SetTrigger();
-    while (this-running){
-        unique_lock<mutex> lock_(this->cv_m);
+    while (this->running) {
         {
-            unique_lock<mutex> lock(*cv_m_mother);
-            this->has_triggered = true;
-            cv_mother->notify_all();
+            unique_lock<mutex> lock_(this->cv_m);
+            this->cv.wait(lock_);
         }
-        this->cv.wait(lock_);
+        unique_lock<mutex> lock(*cv_m_mother);
+        std::cout << "Automation " << this->alias << " has been triggered" << std::endl;
+        this->has_triggered = true;
+        cv_mother->notify_all();
     }
 }
 
 
 bool Automation::HasTriggered() {
-    if (this->has_triggered)
-    {
+    if (this->has_triggered) {
         this->has_triggered = false;
         return true;
-    }
-    else{
+    } else {
         return false;
     }
 }
 
 void Automation::SetTrigger() {
-    for (auto &trigger : this->triggers) {
-        trigger->SetTrigger(&this->cv, &this->cv_m);
+    for (auto &trigger: this->triggers) {
+        thread t(&Trigger::Run, trigger, &this->cv);
+        this->trigger_threads.push_back(std::move(t));
     }
+}
+
+void Automation::Stop() {
+    unique_lock<mutex> lock(this->cv_m);
+    this->running = false;
+    for (auto &t: this->triggers) {
+        t->Stop();
+    }
+    this->cv.notify_all();
 }
 
 

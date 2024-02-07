@@ -4,15 +4,33 @@
 
 #include "TriggerTime.hpp"
 
-TriggerTime::TriggerTime(string alias, tm at)  : Trigger(std::move(alias)) {
-    this->at = at;
+TriggerTime::TriggerTime(string alias, const string& pattern)  : Trigger(std::move(alias)) {
+    this->running = false;
+
+    try
+    {
+        this->pattern = cron::make_cron(pattern);
+    }
+    catch (cron::bad_cronexpr const & ex)
+    {
+        std::cerr << ex.what() << '\n';
+    }
 }
 
-void TriggerTime::SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) {
-//    this_thread::sleep_until(chrono::system_clock::from_time_t(mktime(&at)));
-    this_thread::sleep_until(chrono::system_clock::from_time_t(mktime(&at)));
-    cv_mother.notify_all();
+[[noreturn]] void TriggerTime::Run(condition_variable *cv_mother) {
+    while (true) {
+        std::time_t now = std::time(nullptr);
+        std::time_t next = cron::cron_next(this->pattern, now);
+        std::unique_lock<std::mutex> lock(this->cv_m);
+        this->cv.wait_for(lock,chrono::seconds(next - now), [&]{return this->running;});
+        cv_mother->notify_one();
+    }
 }
+
+void TriggerTime::Stop() {
+    this->running = false;
+    cv.notify_one();
+}
+
 
 TriggerTime::~TriggerTime() = default;
-

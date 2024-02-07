@@ -1,2 +1,1 @@
-idf_component_register(SRCS "cJSON.c"
-        INCLUDE_DIRS ".")
+idf_component_register(SRCS "nlohmann/json.hpp" "croncpp/croncpp.h" ".")

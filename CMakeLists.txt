@@ -11,7 +11,6 @@ add_executable(cpp main.cpp
         components/DistributedAutomation/Automation/Trigger/TriggerNumericState.cpp
         components/DistributedAutomation/Automation/Trigger/TriggerState.cpp
         components/DistributedAutomation/Automation/Trigger/TriggerTime.cpp
-        components/DistributedAutomation/Automation/Trigger/TriggerTimePattern.cpp
         components/DistributedAutomation/Automation/Condition/Condition.cpp
         components/DistributedAutomation/Automation/Condition/ConditionLogical.cpp
         components/DistributedAutomation/Automation/Condition/ConditionNumericState.cpp
@@ -25,4 +24,5 @@ add_executable(cpp main.cpp
         components/DistributedAutomation/DistributedServer.hpp
         components/DistributedAutomation/DistributedMatterAPI.cpp
         components/DistributedAutomation/DistributedMatterAPI.hpp
+        components/Library/croncpp/croncpp.h
 )

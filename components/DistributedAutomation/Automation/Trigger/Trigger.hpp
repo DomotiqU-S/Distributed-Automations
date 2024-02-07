@@ -18,7 +18,8 @@ protected:
 public:
     explicit Trigger(string alias);
 
-    virtual void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) = 0;
+    virtual void Run(condition_variable *cv_mother) = 0;
+    virtual void Stop() = 0;
 };
 
 #endif //CPP_TRIGGER_HPP

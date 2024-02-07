@@ -2,19 +2,28 @@
 // Created by talgarr on 01/02/24.
 //
 
-#ifndef CPP_TRIGGERTIME_HPP
-#define CPP_TRIGGERTIME_HPP
+#ifndef CPP_TRIGGERTIMEPATTERN_HPP
+#define CPP_TRIGGERTIMEPATTERN_HPP
 
 #include "Trigger.hpp"
+#include "../../../Library/croncpp/croncpp.h"
+#include <iostream>
 
 class TriggerTime : public Trigger {
 protected:
-    tm at{};
+    cron::cronexpr pattern;
+
+    condition_variable cv;
+    mutex cv_m;
+
+    bool running;
+
 public:
-    TriggerTime(string alias, tm at);
-    void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) override;
+    TriggerTime(string alias, const string& pattern);
+
+    [[noreturn]] void Run(condition_variable *cv_mother) override;
+    void Stop() override;
     ~TriggerTime();
 };
 
-
-#endif //CPP_TRIGGERTIME_HPP
+#endif //CPP_TRIGGERTIMEPATTERN_HPP

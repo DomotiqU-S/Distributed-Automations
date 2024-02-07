@@ -23,7 +23,8 @@ protected:
 
 public:
     TriggerNumericState(string alias, vector<string> entity_id, string attribute, string value_template, double above, double below, time_t for_);
-    void SetTrigger(condition_variable *cv_mother, mutex *cv_m_mother) override;
+    void Run(condition_variable *cv_mother) override;
+    void Stop() override;
     ~TriggerNumericState();
 
 };

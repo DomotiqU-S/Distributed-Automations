@@ -32,7 +32,9 @@ public:
 
     void UpdateAutomations();
 
-    static void Run();
+    void Run();
+    void Stop();
+
     void CreateAutomationsThreads();
 };
 

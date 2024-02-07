@@ -14,7 +14,10 @@ DistributedDevice::DistributedDevice(){
 
 DistributedDevice::~DistributedDevice(){
     this->running = false;
-    this->cv.notify_all();
+    for (auto &automation: this->automations) {
+        automation->Stop();
+        delete automation;
+    }
     for (auto &t: this->automations_threads) {
         t.join();
     }
@@ -45,18 +48,17 @@ void DistributedDevice::UpdateAutomations() {
 }
 
 void DistributedDevice::Run() {
-    auto device = DistributedDevice();
-    device.automations = DistributedMatterAPI::GetAutomations("");
-    device.CreateAutomationsThreads();
-    while (device.running) {
-        unique_lock<mutex> lock(device.cv_m);
-        for (auto &automation: device.automations) {
+    this->automations = DistributedMatterAPI::GetAutomations("");
+    this->CreateAutomationsThreads();
+    while (this->running) {
+        unique_lock<mutex> lock(this->cv_m);
+        for (auto &automation: this->automations) {
             if(automation->HasTriggered()){
                 if (automation->Verify())
                     automation->Do();
             }
         }
-        device.cv.wait(lock);
+        this->cv.wait(lock);
     }
 }
 
@@ -67,8 +69,20 @@ vector<Automation *> DistributedDevice::GetAutomations() {
 void DistributedDevice::CreateAutomationsThreads() {
     for (auto automation: this->automations) {
         thread t(&Automation::Run, automation, &this->cv, &this->cv_m);
+        t.detach();
         this->automations_threads.push_back(std::move(t));
     }
 
+}
+
+void DistributedDevice::Stop() {
+    unique_lock<mutex> lock(this->cv_m);
+    this->running = false;
+    for (auto &t: this->automations) {
+        t->Stop();
+    }
+    this->cv.notify_all();
+//    this->automations.clear();
+//    this->automations_threads.clear();
 }
 

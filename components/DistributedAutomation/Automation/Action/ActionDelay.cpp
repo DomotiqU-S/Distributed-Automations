@@ -6,12 +6,12 @@
 
 #include <utility>
 
-ActionDelay::ActionDelay(string alias, time_t delay) : Action(std::move(alias)) {
-    this->delay = delay;
+ActionDelay::ActionDelay(string alias, time_t delay_s) : Action(std::move(alias)) {
+    this->delay = delay_s;
 }
 
 ActionDelay::~ActionDelay() = default;
 
 void ActionDelay::Do() {
-    std::cout << "ActionDelay Do" << std::endl;
+    this_thread::sleep_for(chrono::seconds(this->delay));
 }
