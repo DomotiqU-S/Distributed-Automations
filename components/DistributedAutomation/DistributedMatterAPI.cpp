@@ -17,10 +17,10 @@ vector<string> DistributedMatterAPI::GetDevices() {
 
 vector<Automation *> DistributedMatterAPI::GetAutomations(const string& alias) {
     vector<Trigger *> triggers = vector<Trigger *>();
-    auto trigger_1 = new TriggerState("trigger_1", "brightness", "0", "", 0);
-    triggers.push_back(trigger_1);
-    auto trigger_2 = new TriggerTime("trigger_2", "0 15 10 * * ?");
-    triggers.push_back(trigger_2);
+//    auto trigger_1 = new TriggerState("trigger_1", "brightness", "0", "", 0);
+//    triggers.push_back(trigger_1);
+//    auto trigger_2 = new TriggerTime("trigger_2", "0 15 10 * * ?");
+//    triggers.push_back(trigger_2);
     auto trigger_3 = new TriggerTime("trigger_3", "*/5 * * * * ?");
     triggers.push_back(trigger_3);
 

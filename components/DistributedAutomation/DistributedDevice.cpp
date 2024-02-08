@@ -9,7 +9,6 @@
 DistributedDevice::DistributedDevice(){
     this->running = true;
     this->automations = vector<Automation*>();
-    this->automations_threads = vector<thread>();
 }
 
 DistributedDevice::~DistributedDevice(){
@@ -18,12 +17,8 @@ DistributedDevice::~DistributedDevice(){
         automation->Stop();
         delete automation;
     }
-    for (auto &t: this->automations_threads) {
-        t.join();
-    }
     this->automations.clear();
-    this->automations_threads.clear();
-};
+}
 
 bool DistributedDevice::AddAutomation(Automation *automation) {
     for (auto &automat : this->automations) {
@@ -70,7 +65,6 @@ void DistributedDevice::CreateAutomationsThreads() {
     for (auto automation: this->automations) {
         thread t(&Automation::Run, automation, &this->cv, &this->cv_m);
         t.detach();
-        this->automations_threads.push_back(std::move(t));
     }
 
 }
@@ -82,7 +76,15 @@ void DistributedDevice::Stop() {
         t->Stop();
     }
     this->cv.notify_all();
-//    this->automations.clear();
-//    this->automations_threads.clear();
+    this->automations.clear();
 }
+
+//DistributedDevice *DistributedDevice::GetInstance() {
+//    lock_guard<mutex> lock(mutex_singleton);
+//    if (instance == nullptr)
+//    {
+//        instance = new DistributedDevice();
+//    }
+//    return instance;
+//}
 

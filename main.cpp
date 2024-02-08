@@ -1,23 +1,25 @@
 #include <iostream>
+#include <chrono>
 
-#include "components/DistributedAutomation/DistributedServer.hpp"
-#include "components/DistributedAutomation/DistributedDevice.hpp"
-#include "components/DistributedAutomation/Automation/Trigger/TriggerTime.hpp"
+//#include "components/DistributedAutomation/DistributedServer.hpp"
+//#include "components/DistributedAutomation/DistributedDevice.hpp"
+//#include "components/DistributedAutomation/Automation/Trigger/TriggerTime.hpp"
+#include "components/singleton.h"
 
+constexpr auto tenMill= 10000000;
 
-int main() {
-//    xTaskCreate(DistributedServer::Run, "server_main", 20480, xTaskGetCurrentTaskHandle(), 5, NULL);
-//    DistributedServer::Run();
-    auto device = DistributedDevice();
-    auto t = thread(&DistributedDevice::Run, &device);
+int main(){
 
-    this_thread::sleep_for(chrono::seconds(21));
-    device.Stop();
+    constexpr auto fourtyMill= 4* tenMill;
 
-    cout << "Hello, World!" << endl;
-    t.join();
+    auto begin= std::chrono::system_clock::now();
 
+    for ( size_t i= 0; i <= fourtyMill; ++i){
+        MySingleton::getInstance();
+    }
 
+    auto end= std::chrono::system_clock::now() - begin;
 
-    return 0;
+    std::cout << std::chrono::duration<double>(end).count() << std::endl;
+
 }

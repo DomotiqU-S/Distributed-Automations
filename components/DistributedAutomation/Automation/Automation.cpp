@@ -27,9 +27,6 @@ Automation::Automation(string alias, string description, vector<Trigger *> trigg
 }
 
 Automation::~Automation() {
-    for (auto &thread: this->trigger_threads) {
-        thread.join();
-    }
     for (auto &trigger: this->triggers) {
         delete trigger;
     }
@@ -95,10 +92,13 @@ void Automation::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
             unique_lock<mutex> lock_(this->cv_m);
             this->cv.wait(lock_);
         }
-        unique_lock<mutex> lock(*cv_m_mother);
-        std::cout << "Automation " << this->alias << " has been triggered" << std::endl;
-        this->has_triggered = true;
-        cv_mother->notify_all();
+        if (this->running) {
+            unique_lock<mutex> lock(*cv_m_mother);
+            std::cout << "Automation " << this->alias << " has been triggered" << std::endl;
+            this->has_triggered = true;
+            cv_mother->notify_all();
+        }
+
     }
 }
 
@@ -115,7 +115,7 @@ bool Automation::HasTriggered() {
 void Automation::SetTrigger() {
     for (auto &trigger: this->triggers) {
         thread t(&Trigger::Run, trigger, &this->cv);
-        this->trigger_threads.push_back(std::move(t));
+        t.detach();
     }
 }
 

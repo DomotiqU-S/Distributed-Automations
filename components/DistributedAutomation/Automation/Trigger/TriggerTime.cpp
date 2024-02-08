@@ -18,18 +18,19 @@ TriggerTime::TriggerTime(string alias, const string& pattern)  : Trigger(std::mo
 }
 
 [[noreturn]] void TriggerTime::Run(condition_variable *cv_mother) {
-    while (true) {
+    this->running = true;
+    while (this->running) {
         std::time_t now = std::time(nullptr);
         std::time_t next = cron::cron_next(this->pattern, now);
         std::unique_lock<std::mutex> lock(this->cv_m);
-        this->cv.wait_for(lock,chrono::seconds(next - now), [&]{return this->running;});
+        this->cv.wait_for(lock,chrono::seconds(next - now), [&]{return not this->running;});
         cv_mother->notify_one();
     }
 }
 
 void TriggerTime::Stop() {
     this->running = false;
-    cv.notify_one();
+    this->cv.notify_one();
 }
 
 

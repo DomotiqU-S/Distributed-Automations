@@ -15,7 +15,6 @@ protected:
 
     condition_variable cv;
     mutex cv_m;
-
     bool running;
 
 public:

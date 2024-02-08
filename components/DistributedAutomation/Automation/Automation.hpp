@@ -21,8 +21,6 @@ private:
     vector<Action *> actions;
     vector<Trigger *> triggers;
 
-    vector<thread> trigger_threads;
-
     bool has_triggered;
     bool running;
 

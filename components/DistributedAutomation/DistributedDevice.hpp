@@ -13,15 +13,22 @@
 
 class DistributedDevice {
 private:
-    vector<Automation *> automations;
-    vector<thread> automations_threads;
-    bool running;
-    mutex cv_m;
-    condition_variable cv;
+    static DistributedDevice *instance;
+    static mutex mutex_singleton;
 
-public:
+    vector<Automation *> automations;
+    bool running;
+    static mutex cv_m;
+    static condition_variable cv;
+
     DistributedDevice();
     ~DistributedDevice();
+
+public:
+    static DistributedDevice& Instance(){
+        static DistributedDevice instance;
+        return instance;
+    };
 
     //Setter
     bool AddAutomation(Automation *automation);

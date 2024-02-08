@@ -17,6 +17,7 @@ void TriggerState::Run(condition_variable *cv_mother) {
 
 void TriggerState::Stop() {
 
+
 }
 
 TriggerState::~TriggerState() = default;

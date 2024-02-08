@@ -15,6 +15,8 @@ class Trigger {
 protected:
     string alias;
 
+
+
 public:
     explicit Trigger(string alias);
 
