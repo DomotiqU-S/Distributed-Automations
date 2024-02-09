@@ -128,5 +128,11 @@ void Automation::Stop() {
     this->cv.notify_all();
 }
 
+void Automation::IO(string attribute, string value) {
+    for (auto &trigger: this->triggers) {
+        trigger->IO(attribute, value);
+    }
+}
+
 
 

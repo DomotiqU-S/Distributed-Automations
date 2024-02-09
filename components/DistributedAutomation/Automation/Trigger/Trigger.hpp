@@ -14,7 +14,7 @@ using namespace std;
 class Trigger {
 protected:
     string alias;
-
+    condition_variable *cv_mother;
 
 
 public:
@@ -22,6 +22,8 @@ public:
 
     virtual void Run(condition_variable *cv_mother) = 0;
     virtual void Stop() = 0;
+
+    virtual void IO(string attribute, string value);
 };
 
 #endif //CPP_TRIGGER_HPP

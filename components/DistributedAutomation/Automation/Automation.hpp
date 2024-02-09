@@ -28,8 +28,6 @@ private:
     condition_variable cv;
 
 
-
-
 public:
     Automation(string alias, string description, vector<Trigger *> triggers, vector<Condition *> conditions, vector<Action *> actions);
     ~Automation();
@@ -53,6 +51,7 @@ public:
     void SetTrigger();
     bool Verify();
     void Do();
+    void IO(string attribute, string value);
 };
 
 

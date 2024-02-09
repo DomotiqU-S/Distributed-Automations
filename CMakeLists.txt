@@ -25,5 +25,6 @@ add_executable(cpp main.cpp
         components/DistributedAutomation/DistributedMatterAPI.cpp
         components/DistributedAutomation/DistributedMatterAPI.hpp
         components/Library/croncpp/croncpp.h
-        components/singleton.h
+        components/DistributedAutomation/Automation/Trigger/TriggerStringState.cpp
+        components/DistributedAutomation/Automation/Trigger/TriggerStringState.hpp
 )

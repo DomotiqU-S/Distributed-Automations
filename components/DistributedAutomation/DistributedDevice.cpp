@@ -39,9 +39,6 @@ void DistributedDevice::RemoveAutomation(string alias) {
     }
 }
 
-void DistributedDevice::UpdateAutomations() {
-}
-
 void DistributedDevice::Run() {
     this->automations = DistributedMatterAPI::GetAutomations("");
     this->CreateAutomationsThreads();
@@ -77,6 +74,13 @@ void DistributedDevice::Stop() {
     }
     this->cv.notify_all();
     this->automations.clear();
+}
+
+void DistributedDevice::TriggerIO(string attribute, string value) {
+    for (auto &automation: this->automations) {
+        automation->IO(attribute, value);
+    }
+
 }
 
 //DistributedDevice *DistributedDevice::GetInstance() {

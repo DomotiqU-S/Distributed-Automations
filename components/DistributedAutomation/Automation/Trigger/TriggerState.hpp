@@ -7,17 +7,23 @@
 
 #include <vector>
 #include "Trigger.hpp"
+#include "TriggerTime.hpp"
+#include "../../../Library/croncpp/croncpp.h"
+
 
 class TriggerState : public Trigger {
 protected:
     string attribute;
-    string from_state;
-    string to_state;
-    time_t for_{};
+    time_t for_s;
+    TriggerTime *trigger_time;
+
+    void IOSup();
+
 public:
-    TriggerState(string alias, string attribute, string from_state, string to_state, time_t for_);
+    TriggerState(string alias, string attribute, time_t for_s);
     void Run(condition_variable *cv_mother) override;
     void Stop() override;
+    virtual void IO(string attribute, string value) = 0;
     ~TriggerState();
 };
 

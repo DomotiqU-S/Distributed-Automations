@@ -2,24 +2,26 @@
 #include <chrono>
 
 //#include "components/DistributedAutomation/DistributedServer.hpp"
-//#include "components/DistributedAutomation/DistributedDevice.hpp"
+#include "components/DistributedAutomation/DistributedDevice.hpp"
 //#include "components/DistributedAutomation/Automation/Trigger/TriggerTime.hpp"
-#include "components/singleton.h"
+#include <thread>
 
-constexpr auto tenMill= 10000000;
 
 int main(){
+    std::thread(&DistributedDevice::Run, &DistributedDevice::Instance()).detach();
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    this_thread::sleep_for(chrono::seconds(1));
+    DistributedDevice::Instance().Stop();
+    this_thread::sleep_for(chrono::seconds(1));
 
-    constexpr auto fourtyMill= 4* tenMill;
-
-    auto begin= std::chrono::system_clock::now();
-
-    for ( size_t i= 0; i <= fourtyMill; ++i){
-        MySingleton::getInstance();
-    }
-
-    auto end= std::chrono::system_clock::now() - begin;
-
-    std::cout << std::chrono::duration<double>(end).count() << std::endl;
-
+    return 0;
 }

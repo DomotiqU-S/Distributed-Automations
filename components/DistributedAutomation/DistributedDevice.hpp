@@ -13,16 +13,15 @@
 
 class DistributedDevice {
 private:
-    static DistributedDevice *instance;
-    static mutex mutex_singleton;
-
     vector<Automation *> automations;
     bool running;
-    static mutex cv_m;
-    static condition_variable cv;
+    mutex cv_m;
+    condition_variable cv;
 
     DistributedDevice();
     ~DistributedDevice();
+
+    void CreateAutomationsThreads();
 
 public:
     static DistributedDevice& Instance(){
@@ -39,10 +38,10 @@ public:
 
     void UpdateAutomations();
 
+    void TriggerIO(string attribute, string value);
+
     void Run();
     void Stop();
-
-    void CreateAutomationsThreads();
 };
 
 

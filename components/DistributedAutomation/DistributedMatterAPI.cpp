@@ -3,12 +3,13 @@
 //
 
 #include "DistributedMatterAPI.hpp"
-#include "Automation/Trigger/TriggerState.hpp"
+#include "Automation/Trigger/TriggerStringState.hpp"
 #include "Automation/Condition/ConditionLogical.hpp"
 #include "Automation/Condition/ConditionTrigger.hpp"
 #include "Automation/Condition/ConditionState.hpp"
 #include "Automation/Action/ActionDelay.hpp"
 #include "Automation/Trigger/TriggerTime.hpp"
+#include "Automation/Trigger/TriggerNumericState.hpp"
 
 vector<string> DistributedMatterAPI::GetDevices() {
     vector<string> devices_alias = {"device1", "device2"};
@@ -17,12 +18,15 @@ vector<string> DistributedMatterAPI::GetDevices() {
 
 vector<Automation *> DistributedMatterAPI::GetAutomations(const string& alias) {
     vector<Trigger *> triggers = vector<Trigger *>();
-//    auto trigger_1 = new TriggerState("trigger_1", "brightness", "0", "", 0);
+//    auto trigger_1 = new TriggerStringState("trigger_1", "brightness", 4, "", "on");
 //    triggers.push_back(trigger_1);
-//    auto trigger_2 = new TriggerTime("trigger_2", "0 15 10 * * ?");
+
+    auto trigger_4 = new TriggerNumericState("trigger_4", "brightness", 4, 0, 255);
+    triggers.push_back(trigger_4);
+//    auto trigger_2 = new TriggerTime("trigger_2", "*/3 * * * * ?");
 //    triggers.push_back(trigger_2);
-    auto trigger_3 = new TriggerTime("trigger_3", "*/5 * * * * ?");
-    triggers.push_back(trigger_3);
+//    auto trigger_3 = new TriggerTime("trigger_3", "*/5 * * * * ?");
+//    triggers.push_back(trigger_3);
 
 //    vector<Condition *> conditions_log = vector<Condition *>();
 //    auto condition_1 = new ConditionTrigger("condition_1", "trigger_1");

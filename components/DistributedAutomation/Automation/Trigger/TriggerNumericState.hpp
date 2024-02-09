@@ -8,23 +8,20 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "Trigger.hpp"
+#include "TriggerState.hpp"
 
 using namespace std;
 
-class TriggerNumericState : public Trigger{
-protected:
-    vector<string> entity_id;
-    string attribute;
-    string value_template;
+class TriggerNumericState : public TriggerState{
+private:
+//    string value_template;
     double above{};
     double below{};
-    time_t for_{};
+
 
 public:
-    TriggerNumericState(string alias, vector<string> entity_id, string attribute, string value_template, double above, double below, time_t for_);
-    void Run(condition_variable *cv_mother) override;
-    void Stop() override;
+    TriggerNumericState(string alias, string attribute, time_t for_s, double above, double below);
+    void IO(string attribute, string value) override;
     ~TriggerNumericState();
 
 };

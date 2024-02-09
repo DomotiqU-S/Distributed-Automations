@@ -5,24 +5,29 @@
 #include "TriggerNumericState.hpp"
 
 
-TriggerNumericState::TriggerNumericState(string alias, vector<string> entity_id, string attribute, string value_template,
-                                         double above, double below, time_t for_) : Trigger(std::move(alias)) {
+TriggerNumericState::TriggerNumericState(string alias, string attribute, time_t for_s, double above, double below)
+        : TriggerState(std::move(alias), std::move(attribute), for_s) {
 
-    this->entity_id = std::move(entity_id);
-    this->attribute = std::move(attribute);
-    this->value_template = std::move(value_template);
     this->above = above;
     this->below = below;
-    this->for_ = for_;
-
 }
 
-void TriggerNumericState::Run(condition_variable *cv_mother) {
-    return;
-}
+void TriggerNumericState::IO(string attribute, string value) {
+    if (attribute.empty() or value.empty())
+        return;
 
-void TriggerNumericState::Stop() {
-
+    if (this->attribute == attribute) {
+        try {
+            float value_f = stof(value);
+            if (this->above < value_f and value_f < this->below) {
+                this->IOSup();
+            }
+            else {
+                this->Stop();
+            }
+        } catch (exception &e) {
+        }
+    }
 }
 
 TriggerNumericState::~TriggerNumericState() = default;

@@ -16,13 +16,18 @@ protected:
     condition_variable cv;
     mutex cv_m;
     bool running;
+    bool one_time;
 
 public:
-    TriggerTime(string alias, const string& pattern);
+    TriggerTime(string alias, const string &pattern, bool one_time=false);
 
-    [[noreturn]] void Run(condition_variable *cv_mother) override;
+    void Run(condition_variable *cv_mother) override;
     void Stop() override;
+
+    void SetPattern(const string &pattern);
+    bool IsRunning() const;
     ~TriggerTime();
+
 };
 
 #endif //CPP_TRIGGERTIMEPATTERN_HPP
