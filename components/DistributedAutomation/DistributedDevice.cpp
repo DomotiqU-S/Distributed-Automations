@@ -76,11 +76,19 @@ void DistributedDevice::Stop() {
     this->automations.clear();
 }
 
-void DistributedDevice::TriggerIO(string attribute, string value) {
+void DistributedDevice::TriggerIO(const string& attribute, const string& value) {
+    this->states[attribute] = State(time(nullptr), value);
     for (auto &automation: this->automations) {
         automation->IO(attribute, value);
     }
 
+}
+
+State DistributedDevice::GetAttribute(const string& attribute) {
+    if (this->states.find(attribute) == this->states.end()) {
+        return State(time(nullptr), "");
+    }
+    return this->states[attribute];
 }
 
 //DistributedDevice *DistributedDevice::GetInstance() {

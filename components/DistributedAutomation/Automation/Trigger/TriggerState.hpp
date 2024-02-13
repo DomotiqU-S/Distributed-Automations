@@ -10,7 +10,6 @@
 #include "TriggerTime.hpp"
 #include "../../../Library/croncpp/croncpp.h"
 
-
 class TriggerState : public Trigger {
 protected:
     string attribute;
@@ -21,7 +20,7 @@ protected:
 
 public:
     TriggerState(string alias, string attribute, time_t for_s);
-    void Run(condition_variable *cv_mother) override;
+    void Run(condition_variable *cv_mother, mutex *cv_m_mother) override;
     void Stop() override;
     virtual void IO(string attribute, string value) = 0;
     ~TriggerState();

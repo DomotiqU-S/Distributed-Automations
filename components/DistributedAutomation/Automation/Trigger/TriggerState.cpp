@@ -21,8 +21,9 @@ TriggerState::~TriggerState() {
 
 }
 
-void TriggerState::Run(condition_variable *cv_mother) {
+void TriggerState::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
     this->cv_mother = cv_mother;
+    this->cv_m_mother = cv_m_mother;
 }
 
 void TriggerState::Stop() {
@@ -44,8 +45,9 @@ void TriggerState::IOSup() {
                       to_string(tm->tm_mday) + " " + to_string(tm->tm_mon + 1) + " *";
         delete tm;
         this->trigger_time->SetPattern(next);
-        std::thread(&TriggerTime::Run, this->trigger_time, this->cv_mother).detach();
+        std::thread(&TriggerTime::Run, this->trigger_time, this->cv_mother, this->cv_m_mother).detach();
     } else {
+        this->has_triggered = true;
         this->cv_mother->notify_one();
     }
 }

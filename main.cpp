@@ -12,11 +12,7 @@ int main(){
     this_thread::sleep_for(chrono::seconds(1));
     DistributedDevice::Instance().TriggerIO("brightness", "50");
     this_thread::sleep_for(chrono::seconds(1));
-    DistributedDevice::Instance().TriggerIO("brightness", "50");
-    this_thread::sleep_for(chrono::seconds(1));
-    DistributedDevice::Instance().TriggerIO("brightness", "50");
-    this_thread::sleep_for(chrono::seconds(1));
-    DistributedDevice::Instance().TriggerIO("brightness", "50");
+    DistributedDevice::Instance().TriggerIO("brightness", "25");
     this_thread::sleep_for(chrono::seconds(1));
     DistributedDevice::Instance().TriggerIO("brightness", "50");
     this_thread::sleep_for(chrono::seconds(1));

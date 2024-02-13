@@ -11,7 +11,7 @@ ConditionTime::ConditionTime(string alias, tm after, tm before, vector<string> w
 
 }
 
-bool ConditionTime::Verify() {
+bool ConditionTime::Verify(string alias) {
     time_t now = time(nullptr);
     tm *ltm = localtime(&now);
     if (ltm->tm_hour < after.tm_hour and ltm->tm_hour > before.tm_hour) {

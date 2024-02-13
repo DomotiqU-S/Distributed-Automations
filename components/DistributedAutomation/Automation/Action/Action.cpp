@@ -9,7 +9,7 @@ Action::Action(std::string alias){
     this->alias = std::move(alias);
 }
 
-Action::~Action()= default;
+Action::~Action() = default;
 
 
 

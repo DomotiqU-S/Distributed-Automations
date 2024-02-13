@@ -8,4 +8,9 @@ Condition::Condition(string alias) {
     this->alias = alias;
 }
 
+bool Condition::Verify(string alias) {
+    return false;
+}
+
+
 Condition::~Condition() = default;

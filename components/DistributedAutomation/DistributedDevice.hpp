@@ -10,10 +10,12 @@
 #include <thread>
 #include <condition_variable>
 #include "Automation/Automation.hpp"
+#include "../Utils/State.hpp"
 
 class DistributedDevice {
 private:
     vector<Automation *> automations;
+    map<string, State> states;
     bool running;
     mutex cv_m;
     condition_variable cv;
@@ -35,10 +37,11 @@ public:
 
     //Getter
     vector<Automation *> GetAutomations();
+    State GetAttribute(const string& attribute);
 
     void UpdateAutomations();
 
-    void TriggerIO(string attribute, string value);
+    void TriggerIO(const string& attribute, const string& value);
 
     void Run();
     void Stop();

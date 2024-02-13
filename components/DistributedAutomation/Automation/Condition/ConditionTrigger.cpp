@@ -4,13 +4,15 @@
 
 #include "ConditionTrigger.hpp"
 
-ConditionTrigger::ConditionTrigger(string alias, string trigger_alias)  : Condition(alias) {
+#include <utility>
+
+ConditionTrigger::ConditionTrigger(string alias, string trigger_alias)  : Condition(std::move(alias)) {
     this->trigger_alias = std::move(trigger_alias);
 
 }
 
-bool ConditionTrigger::Verify() {
-    return false;
+bool ConditionTrigger::Verify(string alias) {
+    return this->trigger_alias == alias;
 }
 
 ConditionTrigger::~ConditionTrigger() = default;

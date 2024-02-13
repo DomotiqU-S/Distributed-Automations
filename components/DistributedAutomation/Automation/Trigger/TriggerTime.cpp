@@ -10,9 +10,11 @@ TriggerTime::TriggerTime(string alias, const string &pattern, bool one_time) : T
     this->SetPattern(pattern);
 }
 
-void TriggerTime::Run(condition_variable *cv_mother) {
+void TriggerTime::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
     this->running = true;
     this->cv_mother = cv_mother;
+    this->cv_m_mother = cv_m_mother;
+
     while (this->running) {
         std::time_t now = std::time(nullptr);
         std::time_t next = cron::cron_next(this->pattern, now);
@@ -20,8 +22,8 @@ void TriggerTime::Run(condition_variable *cv_mother) {
         this->cv.wait_for(lock, chrono::seconds(next - now), [&] { return not this->running; });
         if (!this->running)
             break;
-        cout << "TriggerTime::Run: " << this->alias << " triggered" << endl;
-        this->cv_mother->notify_one();
+        this->has_triggered = true;
+        this->cv_mother->notify_all();
         if (this->one_time) {
             this->running = false;
         }
@@ -33,9 +35,9 @@ void TriggerTime::Stop() {
     this->cv.notify_one();
 }
 
-void TriggerTime::SetPattern(const string &pattern) {
+void TriggerTime::SetPattern(const string &pattern_) {
     try {
-        this->pattern = cron::make_cron(pattern);
+        this->pattern = cron::make_cron(pattern_);
     }
     catch (cron::bad_cronexpr const &ex) {
         std::cerr << ex.what() << '\n';

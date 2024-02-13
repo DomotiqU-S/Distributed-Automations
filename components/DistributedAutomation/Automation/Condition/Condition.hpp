@@ -16,7 +16,7 @@ protected:
 public:
     explicit Condition(string alias);
     virtual ~Condition();
-    virtual bool Verify() = 0;
+    virtual bool Verify(string value);
 };
 
 #endif //CPP_CONDITION_HPP

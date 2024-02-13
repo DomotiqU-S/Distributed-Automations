@@ -21,6 +21,7 @@ private:
     vector<Action *> actions;
     vector<Trigger *> triggers;
 
+    string last_trigger;
     bool has_triggered;
     bool running;
 

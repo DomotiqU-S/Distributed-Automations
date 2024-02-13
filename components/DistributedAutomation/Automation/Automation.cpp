@@ -4,6 +4,9 @@
 
 #include "Automation.hpp"
 
+#include <utility>
+#include "../DistributedDevice.hpp"
+
 
 /**
  * @brief Construct a new Automation:: Automation object
@@ -72,7 +75,7 @@ vector<Trigger *> Automation::GetTriggers() {
 
 bool Automation::Verify() {
     for (auto &condition: this->conditions) {
-        if (!condition->Verify()) {
+        if (!condition->Verify(this->last_trigger)) {
             return false;
         }
     }
@@ -85,7 +88,7 @@ void Automation::Do() {
     }
 }
 
-void Automation::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
+void Automation::Run(condition_variable *cv, mutex *cv_m) {
     this->SetTrigger();
     while (this->running) {
         {
@@ -93,15 +96,19 @@ void Automation::Run(condition_variable *cv_mother, mutex *cv_m_mother) {
             this->cv.wait(lock_);
         }
         if (this->running) {
-            unique_lock<mutex> lock(*cv_m_mother);
-            std::cout << "Automation " << this->alias << " has been triggered" << std::endl;
+            unique_lock<mutex> lock(*cv_m);
+            for (auto &trigger: this->triggers) {
+                if (trigger->HasTriggered()) {
+                    this->last_trigger = trigger->GetAlias();
+                    break;
+                }
+            }
             this->has_triggered = true;
-            cv_mother->notify_all();
+            cv->notify_all();
         }
 
     }
 }
-
 
 bool Automation::HasTriggered() {
     if (this->has_triggered) {
@@ -114,7 +121,7 @@ bool Automation::HasTriggered() {
 
 void Automation::SetTrigger() {
     for (auto &trigger: this->triggers) {
-        thread t(&Trigger::Run, trigger, &this->cv);
+        thread t(&Trigger::Run, trigger, &this->cv, &this->cv_m);
         t.detach();
     }
 }
@@ -133,6 +140,4 @@ void Automation::IO(string attribute, string value) {
         trigger->IO(attribute, value);
     }
 }
-
-
 

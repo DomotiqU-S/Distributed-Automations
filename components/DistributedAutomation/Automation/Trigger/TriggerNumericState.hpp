@@ -15,8 +15,8 @@ using namespace std;
 class TriggerNumericState : public TriggerState{
 private:
 //    string value_template;
-    double above{};
-    double below{};
+    double above;
+    double below;
 
 
 public:

@@ -6,18 +6,24 @@
 
 #include <utility>
 
-ConditionNumericState::ConditionNumericState(string alias, string attribute, string value_template,
-                                             double above, double below)  : Condition(alias) {
-    this->attribute = std::move(attribute);
-    this->value_template = std::move(value_template);
+ConditionNumericState::ConditionNumericState(string alias, string attribute, time_t for_, double above,
+                                             double below) : ConditionState(std::move(alias), std::move(attribute), for_) {
     this->above = above;
     this->below = below;
 }
 
-bool ConditionNumericState::Verify() {
-
-
+bool ConditionNumericState::Verify(string alias) {
+    State state_ = DistributedDevice::Instance().GetAttribute(this->attribute);
+    try {
+        float value = stof(state_.value);
+        if (value > this->above && value < this->below){
+            return this->Verify_(state_);
+        }
+    } catch (std::invalid_argument& e) {
+        return false;
+    }
     return false;
 }
+
 
 ConditionNumericState::~ConditionNumericState() = default;

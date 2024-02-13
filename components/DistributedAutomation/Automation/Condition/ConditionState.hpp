@@ -6,18 +6,21 @@
 #define CPP_CONDITIONSTATE_HPP
 
 #include "Condition.hpp"
+#include "../../DistributedDevice.hpp"
 
 class ConditionState : public Condition
 {
 protected:
     string attribute;
-    time_t for_;
     string state;
+    time_t for_;
+
+    bool Verify_(const State& state_) const;
 
 public:
-    explicit ConditionState(string alias, string attribute, string state, time_t for_);
+    explicit ConditionState(string alias, string attribute, time_t for_);
     ~ConditionState() override;
-    bool Verify() override;
+    bool Verify(string alias) override;
 };
 
 #endif //CPP_CONDITIONSTATE_HPP

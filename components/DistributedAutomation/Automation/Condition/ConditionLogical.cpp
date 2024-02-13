@@ -6,25 +6,25 @@
 
 #include <utility>
 
-bool ConditionLogical::Verify() {
+bool ConditionLogical::Verify(string alias) {
     switch (this->logicalOperator) {
         case AND:
             for (auto &condition : this->conditions) {
-                if (!condition->Verify()) {
+                if (!condition->Verify(alias)) {
                     return false;
                 }
             }
             return true;
         case OR:
             for (auto &condition : this->conditions) {
-                if (condition->Verify()) {
+                if (condition->Verify(alias)) {
                     return true;
                 }
             }
             return false;
         case NOT:
             for (auto &condition : this->conditions) {
-                if (!condition->Verify()) {
+                if (!condition->Verify(alias)) {
                     return true;
                 }
             }

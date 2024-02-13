@@ -5,20 +5,18 @@
 #ifndef CPP_CONDITIONNUMERICSTATE_HPP
 #define CPP_CONDITIONNUMERICSTATE_HPP
 
-#include "Condition.hpp"
+#include "ConditionState.hpp"
 
-class ConditionNumericState : public Condition
+class ConditionNumericState : public ConditionState
 {
 protected:
-    string attribute;
-    string value_template;
     double above;
     double below;
 
 public:
-    explicit ConditionNumericState(string alias, string attribute, string value_template, double above, double below);
+    explicit ConditionNumericState(string alias, string attribute, time_t for_, double above, double below);
     ~ConditionNumericState() override;
-    bool Verify() override;
+    bool Verify(string alias) override;
 };
 
 #endif //CPP_CONDITIONNUMERICSTATE_HPP

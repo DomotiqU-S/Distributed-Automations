@@ -10,7 +10,7 @@
 
 
 class ActionDelay : public Action {
-protected:
+private:
     time_t delay;
 
 public:

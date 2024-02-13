@@ -14,14 +14,18 @@ using namespace std;
 class Trigger {
 protected:
     string alias;
-    condition_variable *cv_mother;
 
+    bool has_triggered;
+    condition_variable * cv_mother;
+    mutex * cv_m_mother;
 
 public:
     explicit Trigger(string alias);
 
-    virtual void Run(condition_variable *cv_mother) = 0;
+    virtual void Run(condition_variable *cv_mother, mutex *cv_m_mother) = 0;
     virtual void Stop() = 0;
+    bool HasTriggered();
+    string GetAlias();
 
     virtual void IO(string attribute, string value);
 };

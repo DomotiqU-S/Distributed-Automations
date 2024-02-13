@@ -27,4 +27,7 @@ add_executable(cpp main.cpp
         components/Library/croncpp/croncpp.h
         components/DistributedAutomation/Automation/Trigger/TriggerStringState.cpp
         components/DistributedAutomation/Automation/Trigger/TriggerStringState.hpp
+        components/Utils/State.hpp
+        components/DistributedAutomation/Automation/Condition/ConditionStringState.cpp
+        components/DistributedAutomation/Automation/Condition/ConditionStringState.hpp
 )

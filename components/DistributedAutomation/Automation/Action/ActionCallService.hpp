@@ -8,14 +8,14 @@
 #include "Action.hpp"
 
 class ActionCallService : public Action {
+private:
+    string service;
+    string service_data;
+
 public:
     ActionCallService(string alias, string service, string service_data);
     ~ActionCallService() override;
     void Do() override;
-
-protected:
-    string service;
-    string service_data;
 };
 
 
