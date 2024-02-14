@@ -15,7 +15,7 @@ protected:
 public:
     explicit ConditionStringState(string alias, string attribute, time_t for_, string value);
     ~ConditionStringState() override;
-    bool Verify(string alias) override;
+    bool Verify(string trigger_alias) override;
 };
 
 

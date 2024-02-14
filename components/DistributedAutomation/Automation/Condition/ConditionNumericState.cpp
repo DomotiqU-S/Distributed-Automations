@@ -12,7 +12,7 @@ ConditionNumericState::ConditionNumericState(string alias, string attribute, tim
     this->below = below;
 }
 
-bool ConditionNumericState::Verify(string alias) {
+bool ConditionNumericState::Verify(string trigger_alias) {
     State state_ = DistributedDevice::Instance().GetAttribute(this->attribute);
     try {
         float value = stof(state_.value);

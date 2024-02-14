@@ -6,25 +6,25 @@
 
 #include <utility>
 
-bool ConditionLogical::Verify(string alias) {
+bool ConditionLogical::Verify(string trigger_alias) {
     switch (this->logicalOperator) {
         case AND:
             for (auto &condition : this->conditions) {
-                if (!condition->Verify(alias)) {
+                if (!condition->Verify(trigger_alias)) {
                     return false;
                 }
             }
             return true;
         case OR:
             for (auto &condition : this->conditions) {
-                if (condition->Verify(alias)) {
+                if (condition->Verify(trigger_alias)) {
                     return true;
                 }
             }
             return false;
         case NOT:
             for (auto &condition : this->conditions) {
-                if (!condition->Verify(alias)) {
+                if (!condition->Verify(trigger_alias)) {
                     return true;
                 }
             }

@@ -25,7 +25,7 @@ bool ConditionState::Verify_(const State& state_) const {
     return false;
 }
 
-bool ConditionState::Verify(string alias) {
+bool ConditionState::Verify(string trigger_alias) {
     return false;
 }
 

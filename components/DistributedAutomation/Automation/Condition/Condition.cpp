@@ -8,7 +8,7 @@ Condition::Condition(string alias) {
     this->alias = alias;
 }
 
-bool Condition::Verify(string alias) {
+bool Condition::Verify(string trigger_alias) {
     return false;
 }
 

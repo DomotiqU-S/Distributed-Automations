@@ -24,7 +24,7 @@ protected:
 public:
     explicit ConditionLogical(string alias, LogicalOperator logicalOperator, vector<Condition *> conditions);
     ~ConditionLogical() override;
-    bool Verify(string alias) override;
+    bool Verify(string trigger_alias) override;
 };
 
 #endif //CPP_CONDITIONLOGICAL_HPP

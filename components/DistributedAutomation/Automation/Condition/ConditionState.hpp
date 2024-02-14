@@ -20,7 +20,7 @@ protected:
 public:
     explicit ConditionState(string alias, string attribute, time_t for_);
     ~ConditionState() override;
-    bool Verify(string alias) override;
+    bool Verify(string trigger_alias) override;
 };
 
 #endif //CPP_CONDITIONSTATE_HPP

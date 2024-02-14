@@ -10,7 +10,7 @@ ConditionStringState::ConditionStringState(string alias, string attribute, time_
     this->value = std::move(value);
 }
 
-bool ConditionStringState::Verify(string alias) {
+bool ConditionStringState::Verify(string trigger_alias) {
     State state_ = DistributedDevice::Instance().GetAttribute(this->attribute);
     if (state_.value == this->value){
         return this->Verify_(state_);

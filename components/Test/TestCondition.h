@@ -41,6 +41,7 @@ private:
     bool TestConditionLogical();
 
 
+    void Clean();
 };
 
 

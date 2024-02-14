@@ -16,7 +16,7 @@ protected:
 public:
     explicit ConditionTrigger(string alias, string trigger_alias);
     ~ConditionTrigger() override;
-    bool Verify(string alias) override;
+    bool Verify(string trigger_alias) override;
 };
 
 
