@@ -30,4 +30,14 @@ add_executable(cpp main.cpp
         components/Utils/State.hpp
         components/DistributedAutomation/Automation/Condition/ConditionStringState.cpp
         components/DistributedAutomation/Automation/Condition/ConditionStringState.hpp
+        components/Test/Test.cpp
+        components/Test/Test.hpp
+        components/Test/TestAutomation.cpp
+        components/Test/TestAutomation.h
+        components/Test/TestCondition.cpp
+        components/Test/TestCondition.h
+        components/Test/TestTrigger.cpp
+        components/Test/TestTrigger.h
+        components/Test/TestAction.cpp
+        components/Test/TestAction.h
 )

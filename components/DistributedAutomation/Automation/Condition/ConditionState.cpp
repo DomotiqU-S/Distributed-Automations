@@ -15,7 +15,7 @@ ConditionState::ConditionState(string alias, string attribute, time_t for_) : Co
 bool ConditionState::Verify_(const State& state_) const {
     if (this->for_ > 0){
         time_t now = time(nullptr);
-        if (now - state_.time < this->for_){
+        if (now - state_.time >= this->for_){
             return true;
         }
     }

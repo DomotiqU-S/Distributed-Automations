@@ -77,11 +77,13 @@ void DistributedDevice::Stop() {
 }
 
 void DistributedDevice::TriggerIO(const string& attribute, const string& value) {
+    if (this->states[attribute].value == value) {
+        return;
+    }
     this->states[attribute] = State(time(nullptr), value);
     for (auto &automation: this->automations) {
         automation->IO(attribute, value);
     }
-
 }
 
 State DistributedDevice::GetAttribute(const string& attribute) {
