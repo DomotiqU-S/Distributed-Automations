@@ -6,6 +6,7 @@
 #define DISTRIBUTED_SERVER_ACTIONCALLSERVICE_HPP
 
 #include "Action.hpp"
+#include "../../DistributedDevice.hpp"
 
 class ActionCallService : public Action {
 private:

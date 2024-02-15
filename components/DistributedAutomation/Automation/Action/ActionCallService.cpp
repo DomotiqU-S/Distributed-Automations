@@ -15,7 +15,8 @@ ActionCallService::ActionCallService(string alias, string service, string servic
 ActionCallService::~ActionCallService() = default;
 
 void ActionCallService::Do() {
-    std::cout << "AcitonCallService Do" << std::endl;
+    //TODO: Replace next line with endpointcall
+    DistributedDevice::Instance().TriggerIO(this->service, this->service_data);
 }
 
 

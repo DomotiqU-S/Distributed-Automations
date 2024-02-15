@@ -9,10 +9,10 @@ Test::Test() {
     DistributedDevice::Instance().TriggerIO("state_attribute", "on");
 
     cout << "========= Test ========="  << endl;
-    TestTrigger trigger = TestTrigger();
-    TestCondition condition = TestCondition();
+//    TestTrigger trigger = TestTrigger();
+//    TestCondition condition = TestCondition();
     TestAction action = TestAction();
-    TestAutomation automation = TestAutomation();
+//    TestAutomation automation = TestAutomation();
     cout << "========= Test ========="  << endl;
 }
 

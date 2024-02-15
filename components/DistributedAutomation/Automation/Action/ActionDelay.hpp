@@ -11,7 +11,7 @@
 
 class ActionDelay : public Action {
 private:
-    time_t delay;
+    time_t delay_s;
 
 public:
     ActionDelay(string alias, time_t delay_s);
