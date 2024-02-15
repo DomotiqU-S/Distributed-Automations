@@ -11,6 +11,9 @@ TriggerState::TriggerState(string alias, string attribute, time_t for_s) : Trigg
     if (this->for_s > 0) {
         this->trigger_time = new TriggerTime(this->alias + "_TriggerTime", "0 0 0 1 1 ?", true);
     }
+    else {
+        this->trigger_time = nullptr;
+    }
 }
 
 TriggerState::~TriggerState() {
@@ -18,7 +21,6 @@ TriggerState::~TriggerState() {
         this->trigger_time->Stop();
     }
     delete this->trigger_time;
-
 }
 
 void TriggerState::Run(condition_variable *cv_mother, mutex *cv_m_mother) {

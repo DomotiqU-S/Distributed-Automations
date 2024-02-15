@@ -15,10 +15,17 @@ void TriggerStringState::IO(string attribute, string value) {
     if (attribute.empty() or value.empty())
         return;
     if (this->attribute == attribute) {
-        if (this->from_state == this->previous_value or this->to_state == value) {
-            this->IOSup();
+        bool result = false;
+        if ( not this->from_state.empty() and not this->previous_value.empty() ) {
+            result = this->from_state == this->previous_value;
         }
-        else {
+        if (not this->to_state.empty() and not value.empty()) {
+            result = this->to_state == value;
+        }
+
+        if (result) {
+            this->IOSup();
+        } else {
             this->Stop();
         }
         this->previous_value = value;
