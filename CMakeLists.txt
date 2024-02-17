@@ -40,4 +40,6 @@ add_executable(cpp main.cpp
         components/Test/TestTrigger.h
         components/Test/TestAction.cpp
         components/Test/TestAction.h
+        components/Test/TestDistributedDevice.cpp
+        components/Test/TestDistributedDevice.hpp
 )

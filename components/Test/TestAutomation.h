@@ -18,15 +18,26 @@ public:
 private:
     string alias_good = "alias_good";
     string attribute_string_good = "attribute_string_good";
+    string attribute_numeric_good = "attribute_numeric_good";
+    string attribute_end_good = "attribute_end_good";
     time_t for_long = 1;
     string value_string_good = "value_good";
+    float value_numeric_good = 2;
+    string value_string_bad = "value_bad";
     string description = "description";
 
     condition_variable cv;
     mutex cv_m;
 
-    bool AutomationIntegration();
+    bool AutomationBasic();
+    bool AutomationMultipleTrigger();
+    bool AutomationCondition();
 
+    bool AutomationMultipleCondition();
+
+    bool AutomationMultipleAction();
+
+    bool AutomationComplex();
 };
 
 

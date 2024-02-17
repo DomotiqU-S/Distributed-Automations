@@ -40,7 +40,9 @@ void DistributedDevice::RemoveAutomation(string alias) {
 }
 
 void DistributedDevice::Run() {
-    this->automations = DistributedMatterAPI::GetAutomations("");
+    if (this->automations.empty()) {
+        return;
+    }
     this->CreateAutomationsThreads();
     while (this->running) {
         unique_lock<mutex> lock(this->cv_m);
@@ -88,7 +90,7 @@ void DistributedDevice::TriggerIO(const string& attribute, const string& value) 
 
 State DistributedDevice::GetAttribute(const string& attribute) {
     if (this->states.find(attribute) == this->states.end()) {
-        return State(time(nullptr), "");
+        return {};
     }
     return this->states[attribute];
 }

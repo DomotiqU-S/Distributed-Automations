@@ -9,6 +9,7 @@
 #include "TestTrigger.h"
 #include "TestAutomation.h"
 #include "TestCondition.h"
+#include "TestDistributedDevice.hpp"
 
 using namespace std;
 
